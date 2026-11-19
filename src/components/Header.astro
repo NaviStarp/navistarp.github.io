@@ -1,0 +1,64 @@
+---
+import type { ProfileData } from '../data/links';
+import Icons from './Icons.astro';
+
+interface Props {
+  profile: ProfileData;
+}
+
+const { profile } = Astro.props;
+---
+
+<header class="dashboard-header">
+  <!-- Reloj y fecha en vivo -->
+  <div class="clock-widget" id="clock-widget">
+    <div class="clock-time font-mono" id="clock-time">--:--</div>
+    <div class="clock-date" id="clock-date">Cargando...</div>
+  </div>
+
+  <div class="header-main">
+    <div class="avatar-mini">
+      <span>🚀</span>
+    </div>
+    <div class="header-titles">
+      <h1 class="header-name">{profile.greeting || profile.name}</h1>
+      <p class="header-role font-mono">
+        <span class="status-dot"></span>
+        {profile.role} · <a href="https://github.com/navistarp" target="_blank" rel="noopener noreferrer" class="github-link">github/navistarp</a>
+      </p>
+    </div>
+  </div>
+
+  <p class="shortcut-tip font-mono">
+    💡 Pulsa <kbd class="kbd">1</kbd> o <kbd class="kbd">2</kbd> en el teclado para abrir directamente
+  </p>
+</header>
+
+<script>
+  function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    
+    const timeElem = document.getElementById('clock-time');
+    const dateElem = document.getElementById('clock-date');
+    
+    if (timeElem) {
+      timeElem.textContent = `${hours}:${minutes}`;
+    }
+    
+    if (dateElem) {
+      const options: Intl.DateTimeFormatOptions = { 
+        weekday: 'long', 
+        day: 'numeric', 
+        month: 'long' 
+      };
+      const dateStr = now.toLocaleDateString('es-ES', options);
+      // Capitalizar primer carácter
+      dateElem.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+    }
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>

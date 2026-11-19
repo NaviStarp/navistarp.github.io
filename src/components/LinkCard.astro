@@ -1,0 +1,82 @@
+---
+import type { LinkItem } from '../data/links';
+import Icons from './Icons.astro';
+
+interface Props {
+  link: LinkItem;
+}
+
+const { link } = Astro.props;
+const isPlaceholder = link.url === "#";
+---
+
+{isPlaceholder ? (
+  <div class="link-card link-card-wip" data-shortcut={link.shortcut}>
+    <div class="card-inner-centered">
+      <div class="card-top-row">
+        <div class={`card-icon icon-${link.icon}`}>
+          <Icons name={link.icon} class="w-5 h-5" />
+        </div>
+        <h2 class="card-title">{link.title}</h2>
+        {link.badge && (
+          <span class={`status-badge ${link.badge.type}`}>
+            {link.badge.text}
+          </span>
+        )}
+      </div>
+
+      <p class="card-desc">{link.description}</p>
+
+      {link.tags && link.tags.length > 0 && (
+        <div class="card-tags">
+          {link.tags.map((tag) => (
+            <span class="tag-badge">#{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+) : (
+  <a 
+    href={link.url} 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    class="link-card link-card-active"
+    id={`link-${link.id}`}
+    data-shortcut={link.shortcut}
+  >
+    {link.shortcut && (
+      <div class="shortcut-tag font-mono" title={`Presiona ${link.shortcut} para abrir`}>
+        <span class="shortcut-key">{link.shortcut}</span>
+      </div>
+    )}
+
+    <div class="card-inner-centered">
+      <div class="card-top-row">
+        <div class={`card-icon icon-${link.icon}`}>
+          <Icons name={link.icon} class="w-6 h-6" />
+        </div>
+        <h2 class="card-title">{link.title}</h2>
+        {link.badge && (
+          <span class={`status-badge ${link.badge.type}`}>
+            {link.badge.text}
+          </span>
+        )}
+      </div>
+
+      <p class="card-desc">{link.description}</p>
+
+      {link.tags && link.tags.length > 0 && (
+        <div class="card-tags">
+          {link.tags.map((tag) => (
+            <span class="tag-badge">#{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="card-action-indicator" aria-hidden="true">
+      <Icons name="arrow-up-right" class="w-4 h-4" />
+    </div>
+  </a>
+)}

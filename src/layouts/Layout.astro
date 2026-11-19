@@ -1,0 +1,75 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Navistarp · Dashboard & Accesos Rápidos",
+  description = "Dashboard personal con accesos rápidos a mis proyectos y apuntes."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0e17" />
+    <meta name="description" content={description} />
+    
+    <!-- Open Graph / Meta -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" 
+      rel="stylesheet" 
+    />
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      // 1. Efecto spotlight interactivo en las tarjetas
+      document.querySelectorAll<HTMLElement>('.link-card').forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+
+      // 2. Atajos de teclado para apertura ultrarrápida (1 -> Horario, 2 -> Apuntes)
+      window.addEventListener('keydown', (e) => {
+        // Evitar si el usuario está escribiendo en algún input futuro
+        if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+          return;
+        }
+
+        const shortcut = e.key;
+        const targetCard = document.querySelector<HTMLAnchorElement>(`a.link-card[data-shortcut="${shortcut}"]`);
+        
+        if (targetCard && targetCard.href && targetCard.href !== '#') {
+          // Animación visual de pulsación antes de abrir
+          targetCard.classList.add('shortcut-active');
+          setTimeout(() => {
+            targetCard.classList.remove('shortcut-active');
+            window.open(targetCard.href, targetCard.target || '_blank');
+          }, 120);
+        }
+      });
+    </script>
+  </body>
+</html>
