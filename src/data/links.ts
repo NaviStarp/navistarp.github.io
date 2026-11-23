@@ -55,7 +55,7 @@ export const links: LinkItem[] = [
     shortcut: "2",
     tags: ["Quartz", "Universidad", "Notas"],
     badge: {
-      text: "Activo",
+      text: "Online",
       type: "live",
     },
     featured: true,
@@ -69,22 +69,9 @@ export const links: LinkItem[] = [
     shortcut: "3",
     tags: ["UNED", "Campus Virtual", "Moodle"],
     badge: {
-      text: "Campus",
+      text: "Online",
       type: "live",
     },
     featured: true,
-  },
-  {
-    id: "portfolio",
-    title: "Portfolio",
-    description: "Espacio reservado para proyectos futuros y showcase personal.",
-    url: "#",
-    icon: "briefcase",
-    tags: ["En desarrollo"],
-    badge: {
-      text: "Próximamente",
-      type: "wip",
-    },
-    featured: false,
   },
 ];
