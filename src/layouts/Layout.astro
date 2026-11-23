@@ -17,7 +17,7 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0e17" />
+    <meta name="theme-color" content="#070d0a" />
     <meta name="description" content={description} />
     
     <!-- Open Graph / Meta -->
@@ -25,11 +25,11 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     
-    <!-- Fonts -->
+    <!-- Fuentes coincidentes con Quartz y Horario: Geist y JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link 
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" 
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" 
       rel="stylesheet" 
     />
     
@@ -40,7 +40,7 @@ const {
     <slot />
 
     <script>
-      // 1. Efecto spotlight interactivo en las tarjetas
+      // 1. Efecto spotlight interactivo en las tarjetas con tono esmeralda
       document.querySelectorAll<HTMLElement>('.link-card').forEach((card) => {
         card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
@@ -53,7 +53,6 @@ const {
 
       // 2. Atajos de teclado para apertura ultrarrápida (1 -> Horario, 2 -> Apuntes)
       window.addEventListener('keydown', (e) => {
-        // Evitar si el usuario está escribiendo en algún input futuro
         if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
           return;
         }
@@ -62,7 +61,6 @@ const {
         const targetCard = document.querySelector<HTMLAnchorElement>(`a.link-card[data-shortcut="${shortcut}"]`);
         
         if (targetCard && targetCard.href && targetCard.href !== '#') {
-          // Animación visual de pulsación antes de abrir
           targetCard.classList.add('shortcut-active');
           setTimeout(() => {
             targetCard.classList.remove('shortcut-active');
