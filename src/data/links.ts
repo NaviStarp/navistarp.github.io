@@ -55,7 +55,7 @@ export const links: LinkItem[] = [
     shortcut: "2",
     tags: ["Quartz", "Universidad", "Notas"],
     badge: {
-      text: "Activo",
+      text: "Online",
       type: "live",
     },
     featured: true,
