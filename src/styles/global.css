@@ -333,6 +333,10 @@ body::before {
   color: var(--primary-light);
 }
 
+.icon-graduation-cap {
+  color: var(--primary);
+}
+
 .icon-briefcase {
   color: var(--text-muted);
 }

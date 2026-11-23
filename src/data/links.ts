@@ -3,7 +3,7 @@ export interface LinkItem {
   title: string;
   description: string;
   url: string;
-  icon: 'calendar' | 'book' | 'briefcase' | 'github' | 'terminal' | 'link';
+  icon: 'calendar' | 'book' | 'briefcase' | 'github' | 'terminal' | 'link' | 'graduation-cap';
   tags: string[];
   shortcut?: string;
   badge?: {
@@ -55,7 +55,21 @@ export const links: LinkItem[] = [
     shortcut: "2",
     tags: ["Quartz", "Universidad", "Notas"],
     badge: {
-      text: "Online",
+      text: "Activo",
+      type: "live",
+    },
+    featured: true,
+  },
+  {
+    id: "agora-uned",
+    title: "Ágora UNED",
+    description: "Campus virtual universitario, consulta de asignaturas, entregas y foros.",
+    url: "https://agora.uned.es/my/",
+    icon: "graduation-cap",
+    shortcut: "3",
+    tags: ["UNED", "Campus Virtual", "Moodle"],
+    badge: {
+      text: "Campus",
       type: "live",
     },
     featured: true,
@@ -66,7 +80,6 @@ export const links: LinkItem[] = [
     description: "Espacio reservado para proyectos futuros y showcase personal.",
     url: "#",
     icon: "briefcase",
-    shortcut: "3",
     tags: ["En desarrollo"],
     badge: {
       text: "Próximamente",
